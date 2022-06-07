@@ -22,8 +22,6 @@ Standard stack stuff above.
 
 var hosts = process.env.STATIONS.split(" ");
 var channel = process.env.CHANNEL;
-var channel_bravo = process.env.CHANNEL_BRAVO;
-
 var transport = process.env.TRANSPORT;
 var interval_minutes = process.env.INTERVAL;
 var http_transport = process.env.HTTP_TRANSPORT;
@@ -46,8 +44,8 @@ setTimer0 = setInterval(function () {
 // Run jobs at specific times. dev.
 
 let jobs = [
-{channel: channel, nuuid:'abcd', subject:'weather', agentInput:{runAt:'16:00'}},
-{channel: channel, nuuid:'abce', subject:'weather', agentInput:{runAt:'08:00'}},
+{nuuid:'abcd', subject:'weather', agentInput:{runAt:'16:00'}},
+{nuuid:'abce', subject:'weather', agentInput:{runAt:'08:00'}},
 
 ]
 
@@ -80,29 +78,19 @@ setTimer1 = setInterval(function () {
     console.log("age", age);
 
     console.log(job.subject);
-    handleLine(job.subject, 'agent', null, channel);
+    handleLine(job.subject, 'agent', null);
       job['lastRunat'] = date_ob;
     }
   });
+
+
+  //  console.log("I am doing my 1 minute check again");
+  // do your stuff here
   console.log("jobs",hour, minute, day, week, weekYear);
 }, 5000);
 
-setTimer2 = setInterval(function () {
-  //exec("ping -c 3 localhost", puts);
 
-  //  console.log("I am doing my 1 minute check again");
-  // do your stuff here
-  console.log("day", day);
-    handleLine("day twilight canada ", 'agent', null, channel_bravo);
-
-
-}, 1 * 24 * 60 * 60 * 1000);
-
-  //  console.log("I am doing my 1 minute check again");
-  // do your stuff here
-
-
-function handleLine(subject, from = 'ping', agent_input = 'ping', channel = channel) {
+function handleLine(subject, from = 'ping', agent_input = 'ping') {
   /*
         REFERENCE
         $datagram = [
